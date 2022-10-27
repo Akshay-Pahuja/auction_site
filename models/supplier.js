@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Account, {
+        as: 'account',
+        foreignKey: 'account_id'
+      })
+      this.hasMany(models.Transaction, {
+        as: 'transaction',
+        foreignKey: 'supplier_id'
+      })
     }
   }
   Supplier.init({
@@ -33,6 +41,13 @@ module.exports = (sequelize, DataTypes) => {
     institute_contact:  {
       type:DataTypes.STRING,
       allowNull: false,
+    },
+    account_id: {
+      type:DataTypes.INTEGER,
+      references:{
+        model:"Accounts",
+        key:"id",
+      },
     },
   }, {
     sequelize,

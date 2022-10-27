@@ -11,6 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Account, {
+        as: 'account',
+        foreignKey: 'account_id'
+      }),
+      this.hasMany(models.Bid, {
+        as: 'bid',
+        foreignKey: 'user_id'
+      })
+      this.hasMany(models.Transaction, {
+        as: 'transaction',
+        foreignKey: 'user_id'
+      })
+      this.hasMany(models.Cart, {
+        as: 'cart',
+        foreignKey: 'user_id'
+      })
     }
   }
   User.init({
@@ -37,6 +53,13 @@ module.exports = (sequelize, DataTypes) => {
     country:  {
       type:DataTypes.STRING,
       allowNull: false,
+    },
+    account_id: {
+      type:DataTypes.INTEGER,
+      references:{
+        model:"Accounts",
+        key:"id",
+      },
     },
   }, {
     sequelize,

@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require("bcrypt");
+
 const {
   Model
 } = require('sequelize');
@@ -11,30 +13,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasOne(models.User, {
+        as: 'user',
+        foreignKey: 'account_id'
+      })
+      this.hasOne(models.Admin, {
+        as: 'admin',
+        foreignKey: 'account_id'
+      })
+      this.hasOne(models.Supplier, {
+        as: 'supplier',
+        foreignKey: 'account_id'
+      })
     }
   }
   Account.init({
     email: {
       type:DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    password:{
+      type: DataTypes.STRING,
+      allowNull: false,
       set(value){
         if(value){
           this.setDataValue("password",bcrypt.hashSync(value,10));
         }
       },
-      allowNull: false,
     },
-    password:{
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    reset_password_tokens:  {
-      type:DataTypes.STRING,
-      allowNull: false,
-    },
-    reset_password_tokens_expired_at:  {
-      type:DataTypes.DATE,
-      allowNull: false,
-    },
+    reset_password_tokens: DataTypes.STRING,
+    reset_password_tokens_expired_at: DataTypes.DATE,
   },
   {
     sequelize,

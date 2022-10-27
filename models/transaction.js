@@ -9,6 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.User, {
+        as: 'user',
+        foreignKey: 'user_id'
+      }),
+      this.belongsTo(models.Product, {
+        as: 'product',
+        foreignKey: 'product_id'
+      })
+      this.belongsTo(models.Supplier, {
+        as: 'supplier',
+        foreignKey: 'suplier_id'
+      })
     }
   }
   Transaction.init(
@@ -20,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
           model: "Users",
           key: "id",
@@ -28,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       product_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
           model: "Products",
           key: "id",
@@ -40,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       supplier_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         references: {
           model: "Suppliers",
           key: "id",
