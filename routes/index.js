@@ -7,6 +7,7 @@ router.use('/carts', require("./carts"));
 router.use('/products', require("./products"));
 router.use('/suppliers', require("./suppliers"));
 router.use('/transactions', require("./transactions"));
+router.use('/accounts', require("./accounts"));
 
 
 router.get("/health-check", (req, res) => {

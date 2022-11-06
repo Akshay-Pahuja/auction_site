@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require("bcrypt");
+let allModels;
 
 const {
   Model
@@ -49,5 +50,39 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Account',
   });
+
+  Account.registerAllModels = function (models) {
+    allModels = models;
+  };
+
+  Account.authenticate = async (data) => {
+    Account.findOne({
+      where: {
+        email: data.email
+      },
+      include: [{
+        model: allModels.User,
+        as: "user"
+      },
+      {
+        model: allModels.Admin,
+        as: "admin"
+      },
+      {
+        model: allModels.Supplier,
+        as: "supplier"
+      }]
+    }).then((account) => {
+      if(account) {
+        if(bcrypt.compareSync(data.password, account.password)) {
+          return account
+        }
+        else {
+          throw new Error("Password Incorrect")
+        }
+      }
+    })
+  }
+
   return Account;
 };
