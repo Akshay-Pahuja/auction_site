@@ -1,10 +1,9 @@
 let router = require("express").Router();
-const bids =  require("../controllers/bids")
+const bids = require("../controllers/bids");
+const { verifyToken, verifySupplier, verifyUser } = require("../middleware/auth");
 
-router.get("/",bids.index);
-router.post("/",bids.create);
-router.put("/:id", bids.update);
-router.get("/:id", bids.show);
-router.delete("/:id", bids.delete);
+router.get("/", [verifyToken, verifySupplier], bids.index);
+router.post("/", [verifyToken, verifyUser], bids.create);
+router.get("/:id", [verifyToken, verifySupplier], bids.show);
 
 module.exports = router

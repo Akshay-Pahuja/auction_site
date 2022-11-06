@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Account.authenticate = async (data) => {
-    Account.findOne({
+    return Account.findOne({
       where: {
         email: data.email
       },

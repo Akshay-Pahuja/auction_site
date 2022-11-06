@@ -1,6 +1,7 @@
 const e = require("express");
 const db = require("../models");
 const Supplier = db.Supplier;
+const Account = db.Account;
 
 module.exports.index = (req, res) => {
     Supplier.findAll().then((data) => {

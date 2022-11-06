@@ -16,38 +16,43 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'account_id'
       })
       this.hasMany(models.Transaction, {
-        as: 'transaction',
+        as: 'transactions',
+        foreignKey: 'supplier_id'
+      })
+      this.hasMany(models.Product, {
+        as: 'products',
         foreignKey: 'supplier_id'
       })
     }
   }
   Supplier.init({
-    name:  {
-      type:DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    Institute_name:  {
-      type:DataTypes.STRING,
+    Institute_name: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    mobile_no:  {
-      type:DataTypes.STRING,
+    mobile_no: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    institute_address:  {
-      type:DataTypes.STRING,
+    institute_address: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    institute_contact:  {
-      type:DataTypes.STRING,
+    institute_contact: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     account_id: {
-      type:DataTypes.INTEGER,
-      references:{
-        model:"Accounts",
-        key:"id",
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Accounts",
+        key: "id",
       },
+      allowNull: false,
     },
   }, {
     sequelize,

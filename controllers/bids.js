@@ -18,27 +18,10 @@ module.exports.create = (req, res) => {
     })
 }
 
-module.exports.update = (req, res) => {
-    Bid.update(req.body, {where: {id: req.params.id}}).then((data) => {
-        res.status(200).send(data)
-    }).catch((err) => {
-        res.status(422).send({message: err.message})
-    })
-}
-
 module.exports.show = (req, res) => {
     Bid.findByPk(req.params.id).then((data) => {
         res.status(200).send(data)
     }).catch((err) => {
-        res.status(422).send({message: err.message})
-    })
-}
-
-module.exports.delete = (req, res) => {
-    Bid.destroy({where: {id: req.params.id}}).then((data) => {
-        res.status(200).send({message: "user deleted successfully"})
-    }).catch((err) => {
-        console.log(err.stack)
         res.status(422).send({message: err.message})
     })
 }

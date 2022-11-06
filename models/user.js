@@ -16,15 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'account_id'
       }),
       this.hasMany(models.Bid, {
-        as: 'bid',
+        as: 'bids',
         foreignKey: 'user_id'
       })
       this.hasMany(models.Transaction, {
-        as: 'transaction',
+        as: 'transactions',
         foreignKey: 'user_id'
       })
       this.hasMany(models.Cart, {
-        as: 'cart',
+        as: 'carts',
         foreignKey: 'user_id'
       })
     }
@@ -60,6 +60,7 @@ module.exports = (sequelize, DataTypes) => {
         model:"Accounts",
         key:"id",
       },
+      allowNull: false,
     },
   }, {
     sequelize,

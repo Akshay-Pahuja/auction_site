@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken")
 const db = require("../models")
 const Account = db.Account;
 
@@ -10,7 +11,7 @@ module.exports.login = async (req, res) => {
             res.send({account: account, token: token})
         }
         else{
-            res.send(404).send({message: `No account found with email ${req.body.email}`})
+            res.status(404).send({message: `No account found with email ${req.body.email}`})
         }
     }).catch((err) => {
         res.status(422).send({message: err.message});

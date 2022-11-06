@@ -15,7 +15,7 @@ router.get("/health-check", (req, res) => {
 });
 
 router.use((req, res) => {
-    res.status(404).json({ message: "Not Found" });
+    return res.status(404).json({ message: "Not Found" });
 });
 
 module.exports = router

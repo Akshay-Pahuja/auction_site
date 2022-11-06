@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.Bid, {
-        as: 'bid',
+        as: 'bids',
         foreignKey: 'product_id'
       })
       this.hasOne(models.Transaction, {
@@ -20,8 +20,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'product_id'
       })
       this.hasMany(models.Cart, {
-        as: 'cart',
+        as: 'carts',
         foreignKey: 'product_id'
+      })
+      this.belongsTo(models.Supplier, {
+        as: 'supplier',
+        foreignKey: 'supplier_id'
       })
     }
   }

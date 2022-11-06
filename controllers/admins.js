@@ -1,6 +1,7 @@
 const e = require("express");
 const db = require("../models");
 const Admin = db.Admin;
+const Account = db.Account;
 
 module.exports.index = (req, res) => {
     Admin.findAll().then((data) => {
